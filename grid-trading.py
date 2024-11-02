@@ -14,9 +14,17 @@ api_secret = os.getenv('privateKey')
 
 client = EnhancedRESTClient(api_key, api_secret)
 
+# Bot Settings:
+ORDER_AMOUNT = 20
+COIN = "BTC"
+TRADING_PAIR = f"{COIN}-USDC"
+UPPER_LIMIT = 0
+LOWER_LIMIT = 0
+TIMER = 300 
+
 def get_current_price():
     try:
-        response = requests.get('https://api.coinbase.com/v2/prices/spot?currency=BTC')
+        response = requests.get(f'https://api.coinbase.com/v2/prices/spot?currency={COIN}')
         response.raise_for_status()
         data = response.json()
         print(data)
