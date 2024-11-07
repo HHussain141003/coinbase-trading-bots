@@ -2,7 +2,7 @@ import os
 import requests
 import logging
 from dotenv import load_dotenv
-from coinbase_advanced_trader.enhanced_rest_client import EnhancedRESTClient
+from coinbase.rest import RESTClient
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -12,11 +12,11 @@ load_dotenv()
 api_key = os.getenv('name')
 api_secret = os.getenv('privateKey')
 
-client = EnhancedRESTClient(api_key, api_secret)
+client = RESTClient(api_key, api_secret)
 
 # Bot Settings:
 ORDER_AMOUNT = 20
-COIN = "ETH"
+COIN = "BTC"
 TRADING_PAIR = f"{COIN}-USDC"
 UPPER_LIMIT = 0
 LOWER_LIMIT = 0
