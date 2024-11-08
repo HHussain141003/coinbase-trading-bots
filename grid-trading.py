@@ -22,13 +22,12 @@ UPPER_LIMIT = 0
 LOWER_LIMIT = 0
 TIMER = 300 
 
+
 def get_current_price():
     try:
-        response = requests.get(f"https://api.coinbase.com/api/v3/brokerage/products")
-        response.raise_for_status()
-        data = response.json()
-        print(data)
-        # return float(data['data']['amount'])
+        product_info = client.get_product(product_id=TRADING_PAIR)
+        current_price = product_info.price
+        return current_price
     except Exception as e:
         logger.warning(f"Failed to retrieve current price for {TRADING_PAIR}")
 
@@ -37,4 +36,5 @@ def grid_bot():
         get_current_price()
 
 if __name__ == "__main__":
-    get_current_price()
+    current_price = get_current_price()
+    print(current_price)
