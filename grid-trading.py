@@ -1,5 +1,4 @@
 import os
-import requests
 import logging
 from dotenv import load_dotenv
 from coinbase.rest import RESTClient
@@ -15,12 +14,13 @@ api_secret = os.getenv('privateKey')
 client = RESTClient(api_key, api_secret)
 
 # Bot Settings:
-ORDER_AMOUNT = 20
 COIN = "BTC"
 TRADING_PAIR = f"{COIN}-USD"
-UPPER_LIMIT = 0
-LOWER_LIMIT = 0
-TIMER = 300 
+UPPER_BOUND = 0
+LOWER_BOUND = 0
+GRID_SIZE = 0            
+ORDER_SIZE_USD = 0    
+TIMER = 0 
 
 
 def get_current_price():
@@ -30,11 +30,15 @@ def get_current_price():
         return current_price
     except Exception as e:
         logger.warning(f"Failed to retrieve current price for {TRADING_PAIR}")
+        return None
 
 def grid_bot():
     while True:
-        get_current_price()
+        current_price = get_current_price()
+        if current_price is None:
+            break
+
+        logger.info(f"Current price for {TRADING_PAIR}: {current_price}")
 
 if __name__ == "__main__":
-    current_price = get_current_price()
-    print(current_price)
+    grid_bot()
