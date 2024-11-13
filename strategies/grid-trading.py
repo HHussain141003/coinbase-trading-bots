@@ -35,6 +35,7 @@ def get_current_price():
 
 def place_buy_order():
     order = client.market_order_buy(product_id=TRADING_PAIR, quote_size=ORDER_SIZE_USD)
+    return order
 
 def grid_bot():
     while True:
